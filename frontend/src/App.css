@@ -44,15 +44,25 @@
   margin-left: 10px;
 }
 
+.todo-row{
+  width:300px;
+  margin-left: 0;
+}
+
 .todo-item {
   display: flex;
+  align-items: center;
   background-color: #ffffff;
-  padding: 15px ;
+  padding-left: 15px ;
   padding-right: 120px;
   border-radius: 10px;
   margin-top: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
+}
+
+.line{
+  text-decoration: line-through;
 }
 
 .todo-item:hover {

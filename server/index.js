@@ -27,6 +27,44 @@ app.post('/add',(req, res) => {
     }).then(result => res.json(result))
     .catch(error => console.error('Error aadding todo'))
 })
+
+app.put('/update/:id', (req, res) => {
+    const { id } = req.params;
+    // console.log(id);
+    TodoModel.findById(id)
+        .then(todo => {
+            if (!todo) {
+                return res.status(404).json({ message: 'Todo not found' });
+            }
+            const updatedDone = !todo.done;
+
+            return TodoModel.findByIdAndUpdate(
+                id,
+                { done: updatedDone },
+                { new: true } 
+            );
+        })
+        .then(updatedTodo => {
+            if (updatedTodo) {
+                res.json(updatedTodo);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating todo:', error);
+            res.status(500).json({ message: 'Server error' });
+        });
+});
+
+
+app.delete('/delete/:id', (req, res) => {
+    const { id } = req.params;
+    // console.log(id);
+    TodoModel.findByIdAndDelete({_id:id})
+    .then(result => res.json(result))
+    .catch(error => console.error('Error deleting todo'))
+
+})
+
 app.listen(3001, ()=>{
     console.log('listening on "http://localhost:3001"')
 })
